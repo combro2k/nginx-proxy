@@ -35,7 +35,7 @@ upstream {{ $host }} {
 server {
 	gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
 
-	server_name {{ $host }};
+	server_name  www.{{ $host }} {{ $host }};
         proxy_buffering off;
 
 	location / {
@@ -70,7 +70,7 @@ upstream ssl-{{ $host }} {
 server {
         listen 443 ssl;
 
-        server_name {{ $host }};
+        server_name www.{{ $host }} {{ $host }};
         proxy_buffering off;
 
         location / {
