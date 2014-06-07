@@ -7,11 +7,11 @@ RUN apt-get install -y python-software-properties wget supervisor
 RUN add-apt-repository -y ppa:nginx/stable
 
 RUN apt-get update
-RUN apt-get install -y nginx
+RUN apt-get install -y nginx nginx-common nginx-full
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 RUN mkdir /etc/nginx/ssl
-WORKDIR /etc/nginx/ssl
+WORKDIR /etc/nginx/ssl 
 RUN openssl genrsa  -out server.key 2048
 RUN openssl req -new -batch -key server.key -out server.csr
 RUN openssl x509 -req -days 10000 -in server.csr -signkey server.key -out server.crt
