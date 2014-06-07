@@ -68,7 +68,7 @@ upstream ssl-{{ $host }} {
 }
 
 server {
-        listen 443 ssl;
+        listen 443 ssl spdy;
 
         server_name www.{{ $host }} {{ $host }};
         proxy_buffering off;
