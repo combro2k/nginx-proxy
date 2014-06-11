@@ -20,13 +20,13 @@ RUN mkdir /app
 WORKDIR /app
 ADD . /app
 
-RUN wget https://github.com/jwilder/docker-gen/releases/download/0.2.1/docker-gen-linux-amd64-0.2.1.tar.gz
-RUN tar xvzf docker-gen-linux-amd64-0.2.1.tar.gz
+RUN wget https://github.com/jwilder/docker-gen/releases/download/0.3.0/docker-gen-linux-amd64-0.3.0.tar.gz
+RUN tar xvzf docker-gen-linux-amd64-0.3.0.tar.gz
 
 RUN mkdir -p /var/log/supervisor
 ADD supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 
-EXPOSE 80
+EXPOSE 80 443
 ENV DOCKER_HOST unix:///tmp/docker.sock
 
 CMD ["/usr/bin/supervisord"]
