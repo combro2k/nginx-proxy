@@ -20,8 +20,8 @@ RUN mkdir /app
 WORKDIR /app
 ADD . /app
 
-RUN wget https://github.com/jwilder/docker-gen/releases/download/0.3.0/docker-gen-linux-amd64-0.3.0.tar.gz
-RUN tar xvzf docker-gen-linux-amd64-0.3.0.tar.gz
+RUN wget https://github.com/combro2k/docker-gen/raw/master/docker-gen.tar.gz
+RUN tar xvzf docker-gen.tar.gz
 
 RUN mkdir -p /var/log/supervisor
 ADD supervisor.conf /etc/supervisor/conf.d/supervisor.conf
