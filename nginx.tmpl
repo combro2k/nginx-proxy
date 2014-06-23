@@ -81,6 +81,11 @@ server {
         server_name {{ $host }};
         proxy_buffering off;
 
+        {{ if exists $host }}
+        ssl_certificate /etc/nginx/ssl/{{ $host }}/ssl.crt;
+        ssl_certificate_key /etc/nginx/ssl/{{ $host }}/ssl.key;
+        {{ end }}
+
 	    ssl                        on;
  	    ssl_session_timeout        5m;
  	    ssl_protocols              SSLv3 TLSv1 TLSv1.1 TLSv1.2;

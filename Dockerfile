@@ -26,8 +26,7 @@ ADD . /app
 RUN wget -P /usr/local/bin https://godist.herokuapp.com/projects/ddollar/forego/releases/current/linux-amd64/forego
 RUN chmod u+x /usr/local/bin/forego
 
-RUN wget https://github.com/jwilder/docker-gen/releases/download/0.3.0/docker-gen-linux-amd64-0.3.0.tar.gz
-RUN tar xvzf docker-gen-linux-amd64-0.3.0.tar.gz
+ADD docker-gen docker-gen
 
 EXPOSE 80 443
 ENV DOCKER_HOST unix:///tmp/docker.sock
