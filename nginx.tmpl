@@ -6,7 +6,6 @@ server {
 	return 503;
 }
 
-
 {{/* Should consider retrieving proper certs from a remote server, keyed by $VIRTUAL_SSL_HOST */}}
 ssl_certificate /etc/nginx/ssl/server.crt;
 ssl_certificate_key /etc/nginx/ssl/server.key;
@@ -14,6 +13,18 @@ ssl_session_timeout  5m;
 ssl_protocols        SSLv3 TLSv1;
 ssl_ciphers          ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+EXP;
 ssl_prefer_server_ciphers   on;
+
+server {
+	listen 443 ssl spdy;
+
+	server_name _; # This is just an invalid value which will never trigger on a real hostname.
+	error_log /proc/self/fd/2;
+	access_log /proc/self/fd/1;
+
+    add_header Strict-Transport-Security max-age=15768000;
+
+	return 503;
+}
 
 {{ range $host, $containers := groupByMulti $ "Env.VIRTUAL_HOST" "," }}
     upstream {{ $host }} {
