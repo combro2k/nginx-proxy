@@ -12,6 +12,7 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 #Add custom nginx.conf file
 ADD nginx.conf /etc/nginx/nginx.conf
+ADD sslproxy.conf /etc/nginx/conf.d/sslproxy.conf
 
 RUN mkdir /etc/nginx/ssl
 WORKDIR /etc/nginx/ssl 
