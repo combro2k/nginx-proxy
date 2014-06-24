@@ -10,8 +10,8 @@ RUN apt-get update
 RUN apt-get install -y nginx nginx-common nginx-full
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
-#fix for long server names
-RUN sed -i 's/# server_names_hash_bucket/server_names_hash_bucket/g' /etc/nginx/nginx.conf
+#Add custom nginx.conf file
+ADD nginx.conf /etc/nginx/nginx.conf
 
 RUN mkdir /etc/nginx/ssl
 WORKDIR /etc/nginx/ssl 
