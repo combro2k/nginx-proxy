@@ -67,7 +67,7 @@ server {
         proxy_buffering off;
 
         {{ range $index, $value := $containers }}
-            {{ if $value.Env.SSL_Only }}
+            {{ if $value.Env.SSL_ONLY }}
         rewrite        ^ https://$server_name$request_uri? permanent;
             {{ end }}
         {{ end }}
