@@ -66,10 +66,14 @@ server {
         server_name  {{ $host }};
         proxy_buffering off;
 
+    {{ if $value.Env.SSL_ONLY }}
+        rewrite ^ https://$server_name$request_uri? permanent;
+    {{ else }}
         location / {
             proxy_pass http://{{ $host }};
             include /etc/nginx/proxy_params;
         }
+    {{ end }}
     }
 
     server {
