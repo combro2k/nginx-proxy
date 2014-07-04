@@ -3,8 +3,9 @@ MAINTAINER Jason Wilder jwilder@litl.com
 
 # Install Nginx.
 RUN apt-get update
-RUN apt-get install -y python-software-properties wget
-RUN add-apt-repository -y ppa:nginx/development
+RUN apt-get install -y wget
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C300EE8C
+RUN echo deb http://ppa.launchpad.net/nginx/stable/ubuntu trusty main > /etc/apt/sources.list.d/nginx-stable-trusty.list
 
 RUN apt-get update
 RUN apt-get install -y nginx nginx-common nginx-full
