@@ -92,6 +92,7 @@ server {
         resolver 8.8.8.8 8.8.4.4;
         ssl_stapling on;
         ssl_stapling_verify on;
+        resolver_timeout 5s;
         {{ end }}
 
         ssl_session_cache  builtin:1000  shared:SSL:10m;
@@ -152,6 +153,7 @@ server {
     resolver 8.8.8.8 8.8.4.4;
     ssl_stapling on;
     ssl_stapling_verify on;
+    resolver_timeout 5s;
     {{ end }}
 
     ssl_session_cache  builtin:1000  shared:SSL:10m;
