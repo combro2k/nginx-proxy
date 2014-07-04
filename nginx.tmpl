@@ -88,6 +88,8 @@ server {
         ssl_certificate /etc/nginx/ssl/{{ $host }}/ssl.crt;
         ssl_certificate_key /etc/nginx/ssl/{{ $host }}/ssl.key;
 
+
+        resolver 8.8.8.8 8.8.4.4;
         ssl_stapling on;
         ssl_stapling_verify on;
         {{ end }}
@@ -147,6 +149,7 @@ server {
     ssl_certificate /etc/nginx/ssl/{{ $host }}/ssl.crt;
     ssl_certificate_key /etc/nginx/ssl/{{ $host }}/ssl.key;
 
+    resolver 8.8.8.8 8.8.4.4;
     ssl_stapling on;
     ssl_stapling_verify on;
     {{ end }}
