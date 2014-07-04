@@ -4,10 +4,11 @@ MAINTAINER Jason Wilder jwilder@litl.com
 # Install Nginx.
 RUN apt-get update
 RUN apt-get install -y python-software-properties wget
-RUN add-apt-repository -y ppa:nginx/stable
+RUN add-apt-repository -y ppa:nginx/development
 
 RUN apt-get update
 RUN apt-get install -y nginx nginx-common nginx-full
+RUN apt-get upgrade -y
 
 #Add custom nginx.conf file
 ADD nginx.conf /etc/nginx/nginx.conf
