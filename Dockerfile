@@ -18,7 +18,7 @@ ADD proxy_params /etc/nginx/proxy_params
 RUN mkdir /etc/nginx/ssl
 WORKDIR /etc/nginx/ssl
 
-RUN openssl genrsa  -out server.key 2048
+RUN openssl genrsa  -out server.key 4096
 RUN openssl req -new -batch -key server.key -out server.csr
 RUN openssl x509 -req -days 10000 -in server.csr -signkey server.key -out server.crt
 RUN openssl dhparam -out dhparam.pem 4096
