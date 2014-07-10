@@ -32,7 +32,7 @@ ADD ./app /app
 RUN wget -P /usr/local/bin https://godist.herokuapp.com/projects/ddollar/forego/releases/current/linux-amd64/forego
 RUN chmod u+x /usr/local/bin/forego
 
-ADD docker-gen docker-gen
+ADD app/docker-gen docker-gen
 
 EXPOSE 80 443
 ENV DOCKER_HOST unix:///tmp/docker.sock
