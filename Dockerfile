@@ -54,7 +54,7 @@ RUN cd /usr/src/nginx-${NGINX_VERSION} && ./configure \
 	--with-ipv6 \
 	--with-sha1='../${LIBRESSL_VERSION}' \
  	--with-md5='../${LIBRESSL_VERSION}' \
-	--with-openssl='../${LIBRESSL_VERSION}' \
+	--with-openssl='../${LIBRESSL_VERSION}'
 
 RUN cd /usr/src/${LIBRESSL_VERSION}/ && ./config && make && make install && ./after.sh && cd /usr/src/nginx-${NGINX_VERSION} && make && make install
 
