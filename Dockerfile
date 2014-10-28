@@ -11,7 +11,7 @@ RUN echo deb-src http://nginx.org/packages/mainline/ubuntu trusty nginx > /etc/a
 RUN apt-get update &&  apt-get install nano git build-essential cmake zlib1g-dev libpcre3 libpcre3-dev unzip -y
 RUN apt-get upgrade -y
 
-ENV NGINX_VERSION 1.7.6
+ENV NGINX_VERSION 1.7.7
 
 RUN cd /usr/src/ && wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && tar xf nginx-${NGINX_VERSION}.tar.gz && rm -f nginx-${NGINX_VERSION}.tar.gz
 RUN cd /usr/src/ && wget http://ftp.openbsd.org/pub/OpenBSD/LibreSSL/${LIBRESSL_VERSION}.tar.gz && tar xvzf ${LIBRESSL_VERSION}.tar.gz
