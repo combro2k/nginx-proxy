@@ -52,8 +52,6 @@ RUN cd /usr/src/nginx-${NGINX_VERSION} && ./configure \
 
 RUN cd /usr/src/nginx-${NGINX_VERSION} && make && make install
 
-RUN mkdir -p /etc/nginx/ssl
-
 #Add custom nginx.conf file
 ADD nginx.conf /etc/nginx/nginx.conf
 ADD proxy_params /etc/nginx/proxy_params
