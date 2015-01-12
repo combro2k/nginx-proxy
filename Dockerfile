@@ -16,8 +16,11 @@ ENV NGINX_VERSION 1.7.9
 RUN cd /usr/src/ && wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && tar xf nginx-${NGINX_VERSION}.tar.gz && rm -f nginx-${NGINX_VERSION}.tar.gz
 RUN cd /usr/src/ && git clone https://boringssl.googlesource.com/boringssl
 
+ADD boringssl.patch /usr/src/boringssl.patch
+ADD nginx.patch /usr/src/nginx.patch
+
 # BoringSSL specifics
-RUN cd /usr/src/ && wget --no-check-certificate https://calomel.org/boringssl_freebsd10_calomel.org.patch && cd /usr/src/boringssl && patch < ../boringssl_freebsd10_calomel.org.patch
+RUN cd /usr/src/ && cd /usr/src/boringssl && patch < ../boringssl.patch
 RUN cd /usr/src/boringssl && mkdir build && cd build && cmake ../ && make && cd ..
 RUN cd /usr/src/boringssl && mkdir -p .openssl/lib && cd .openssl && ln -s ../include && cd ..
 RUN cd /usr/src/boringssl && cp build/crypto/libcrypto.a build/ssl/libssl.a .openssl/lib
