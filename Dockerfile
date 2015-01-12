@@ -19,8 +19,6 @@ RUN mkdir -p /data/{config,ssl,logs}
 
 RUN ln -s /data/ssl /etc/nginx/ssl
 
-WORKDIR /etc/nginx/ssl
-
 RUN mkdir /app
 WORKDIR /app
 ADD ./app /app
