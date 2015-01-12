@@ -11,7 +11,7 @@ RUN echo deb-src http://nginx.org/packages/mainline/ubuntu trusty nginx > /etc/a
 RUN apt-get update &&  apt-get install nano git build-essential cmake zlib1g-dev libpcre3 libpcre3-dev unzip -y
 RUN apt-get upgrade -y
 
-ENV NGINX_VERSION 1.7.7
+ENV NGINX_VERSION 1.7.9
 
 RUN cd /usr/src/ && wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && tar xf nginx-${NGINX_VERSION}.tar.gz && rm -f nginx-${NGINX_VERSION}.tar.gz
 RUN cd /usr/src/ && wget http://ftp.openbsd.org/pub/OpenBSD/LibreSSL/${LIBRESSL_VERSION}.tar.gz && tar xvzf ${LIBRESSL_VERSION}.tar.gz
@@ -28,8 +28,8 @@ RUN cd /usr/src/nginx-${NGINX_VERSION} && ./configure \
 	--prefix=/etc/nginx \
 	--sbin-path=/usr/sbin/nginx \
 	--conf-path=/etc/nginx/nginx.conf \
-	--error-log-path=/var/log/nginx/error.log \
-	--http-log-path=/var/log/nginx/access.log \
+	--error-log-path=/data/logs/error.log \
+	--http-log-path=/data/logs/access.log \
 	--pid-path=/var/run/nginx.pid \
 	--lock-path=/var/run/nginx.lock \
 	--with-http_realip_module \
@@ -58,25 +58,19 @@ RUN mkdir -p /etc/nginx/ssl
 ADD nginx.conf /etc/nginx/nginx.conf
 ADD proxy_params /etc/nginx/proxy_params
 
-WORKDIR /etc/nginx/ssl
-
-RUN openssl genrsa  -out server.key 4096
-RUN openssl req -new -batch -key server.key -out server.csr
-RUN openssl x509 -req -days 10000 -in server.csr -signkey server.key -out server.crt
-RUN openssl dhparam -out dhparam.pem 4096
-
-RUN mkdir -p /etc/nginx/sites-enabled
+RUN mkdir -p /data/{config,ssl,logs}
+RUN ln -s /data/ssl /etc/nginx/ssl
 
 RUN mkdir /app
 WORKDIR /app
 ADD ./app /app
 
 RUN wget -P /usr/local/bin https://godist.herokuapp.com/projects/ddollar/forego/releases/current/linux-amd64/forego
-RUN chmod u+x /usr/local/bin/forego
+RUN chmod u+x /usr/local/bin/forego /app/init.sh
 
 ADD app/docker-gen docker-gen
 
 EXPOSE 80 443
 ENV DOCKER_HOST unix:///tmp/docker.sock
 
-CMD ["forego", "start", "-r"]
+CMD ["/app/init.sh"]
