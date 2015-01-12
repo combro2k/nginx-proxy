@@ -26,7 +26,7 @@ WORKDIR /app
 ADD ./app /app
 
 RUN wget -P /usr/local/bin https://godist.herokuapp.com/projects/ddollar/forego/releases/current/linux-amd64/forego
-RUN chmod u+x /usr/local/bin/forego
+RUN chmod u+x /usr/local/bin/forego /app/init.sh
 
 ADD app/docker-gen docker-gen
 
