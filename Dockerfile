@@ -12,25 +12,20 @@ RUN apt-get update &&  apt-get install nano -y
 RUN apt-get upgrade -y
 
 ENV NGINX_VERSION 1.7.9
-ENV LIBRESSL_VERSION libressl-2.1.2
+ENV LIBRESSL_VERSION libressl-2.1.3
 
 RUN cd /usr/src/ && wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && tar xf nginx-${NGINX_VERSION}.tar.gz && rm -f nginx-${NGINX_VERSION}.tar.gz
 RUN cd /usr/src/ && wget http://ftp.openbsd.org/pub/OpenBSD/LibreSSL/${LIBRESSL_VERSION}.tar.gz && tar xvzf ${LIBRESSL_VERSION}.tar.gz
 
 RUN apt-get update && apt-get install -y build-essential zlib1g-dev libpcre3 libpcre3-dev unzip
 
-ADD libressl-config /usr/src/${LIBRESSL_VERSION}/config
-ADD after.sh /usr/src/${LIBRESSL_VERSION}/after.sh
-RUN chmod +x /usr/src/${LIBRESSL_VERSION}/config /usr/src/${LIBRESSL_VERSION}/after.sh
-
-
 # Compile nginx
 RUN cd /usr/src/nginx-${NGINX_VERSION} && ./configure \
 	--prefix=/etc/nginx \
 	--sbin-path=/usr/sbin/nginx \
 	--conf-path=/etc/nginx/nginx.conf \
-	--error-log-path=/var/log/nginx/error.log \
-	--http-log-path=/var/log/nginx/access.log \
+	--error-log-path=/data/logs/error.log \
+	--http-log-path=/data/logs/access.log \
 	--pid-path=/var/run/nginx.pid \
 	--lock-path=/var/run/nginx.lock \
 	--with-http_ssl_module \
@@ -56,7 +51,7 @@ RUN cd /usr/src/nginx-${NGINX_VERSION} && ./configure \
  	--with-md5='../${LIBRESSL_VERSION}' \
 	--with-openssl='../${LIBRESSL_VERSION}'
 
-RUN cd /usr/src/${LIBRESSL_VERSION}/ && ./config && make && make install && ./after.sh && cd /usr/src/nginx-${NGINX_VERSION} && make && make install
+RUN cd /usr/src/${LIBRESSL_VERSION}/ && ./configure && make && cd /usr/src/nginx-${NGINX_VERSION} && make && make install
 
 #Add custom nginx.conf file
 ADD nginx.conf /etc/nginx/nginx.conf
