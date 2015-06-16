@@ -11,8 +11,8 @@ RUN echo deb-src http://nginx.org/packages/mainline/ubuntu trusty nginx > /etc/a
 RUN apt-get update &&  apt-get install nano -y
 RUN apt-get upgrade -y
 
-ENV NGINX_VERSION 1.7.9
-ENV LIBRESSL_VERSION libressl-2.1.3
+ENV NGINX_VERSION 1.9.1
+ENV LIBRESSL_VERSION libressl-2.2.0
 
 RUN cd /usr/src/ && wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && tar xf nginx-${NGINX_VERSION}.tar.gz && rm -f nginx-${NGINX_VERSION}.tar.gz
 RUN cd /usr/src/ && wget http://ftp.openbsd.org/pub/OpenBSD/LibreSSL/${LIBRESSL_VERSION}.tar.gz && tar xvzf ${LIBRESSL_VERSION}.tar.gz
